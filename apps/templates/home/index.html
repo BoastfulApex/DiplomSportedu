@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Diplom qidirish</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="card shadow-sm p-4 mx-auto" style="max-width: 500px;">
+        <h3 class="text-center mb-3">Diplomni tekshirish</h3>
+        <form method="post" action="{% url 'home' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="code" class="form-label">ID yoki sertifikat raqamini kiriting:</label>
+                <input type="text" class="form-control" id="code" name="code"
+                       placeholder="Masalan: 2025-001 yoki 12345"
+                       value="{{ query|default:'' }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Izlash</button>
+        </form>
+
+        {% if query %}
+            <hr>
+            {% if diploma %}
+                <div class="mt-3">
+                    <h5>Sertifikat ma’lumotlari:</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item"><b>F.I.Sh:</b> {{ diploma.full_name }}</li>
+                        <li class="list-group-item"><b>Viloyat:</b> {{ diploma.region }}</li>
+                        {% comment %} <li class="list-group-item"><b>Tuman:</b> {{ diploma.district }}</li> {% endcomment %}
+                        <li class="list-group-item"><b>Seriya:</b> {{ diploma.series }}</li>
+                        {% comment %} <li class="list-group-item"><b>Kod:</b> {{ diploma.public_code }}</li> {% endcomment %}
+                        {% comment %} <li class="list-group-item"><b>Yaratilgan:</b> {{ diploma.created_at|date:"d.m.Y H:i" }}</li> {% endcomment %}
+                    </ul>
+
+                    <a href="{% url 'download_diploma' diploma.unique_token %}" 
+                       class="btn btn-success w-100 mt-3">Diplomni yuklab olish (PDF)</a>
+                </div>
+            {% else %}
+                <div class="alert alert-danger mt-3">
+                    Bunday kodli diplom topilmadi
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
