@@ -28,15 +28,28 @@
                     <h5>Sertifikat ma’lumotlari:</h5>
                     <ul class="list-group">
                         <li class="list-group-item"><b>F.I.Sh:</b> {{ diploma.full_name }}</li>
+
+                        {% if diploma.region %}
                         <li class="list-group-item"><b>Viloyat:</b> {{ diploma.region }}</li>
-                        {% comment %} <li class="list-group-item"><b>Tuman:</b> {{ diploma.district }}</li> {% endcomment %}
+                        {% endif %}
+
+                        {% if diploma.sport_type %}
+                        <li class="list-group-item"><b>Sport turi:</b> {{ diploma.sport_type }}</li>
+                        <li class="list-group-item"><b>Daraja:</b> {{ diploma.positon }}</li>
+                        <li class="list-group-item"><b>Musobaqa sanasi:</b> {{ diploma.date|date:"Y-YIL d-F" }}</li>
+                        {% endif %}
+
                         <li class="list-group-item"><b>Seriya:</b> {{ diploma.series }}</li>
-                        {% comment %} <li class="list-group-item"><b>Kod:</b> {{ diploma.public_code }}</li> {% endcomment %}
-                        {% comment %} <li class="list-group-item"><b>Yaratilgan:</b> {{ diploma.created_at|date:"d.m.Y H:i" }}</li> {% endcomment %}
                     </ul>
 
-                    <a href="{% url 'download_diploma' diploma.unique_token %}" 
-                       class="btn btn-success w-100 mt-3">Diplomni yuklab olish (PDF)</a>
+                    {% comment %} URL uchun token yoki series kerak bo‘ladi {% endcomment %}
+                    {% if diploma.unique_token %}
+                        <a href="{% url 'download_diploma' diploma.unique_token %}" 
+                           class="btn btn-success w-100 mt-3">Diplomni yuklab olish (PDF)</a>
+                    {% elif diploma.series %}
+                        <a href="{% url 'download_diploma' diploma.series %}" 
+                           class="btn btn-success w-100 mt-3">Diplomni yuklab olish (PDF)</a>
+                    {% endif %}
                 </div>
             {% else %}
                 <div class="alert alert-danger mt-3">

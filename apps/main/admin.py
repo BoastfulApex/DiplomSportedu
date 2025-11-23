@@ -3,3 +3,4 @@ from .models import *
 
 
 admin.site.register(Diploma)
+admin.site.register(SportDiploma)

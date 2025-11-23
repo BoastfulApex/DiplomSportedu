@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport diplomlarni yuklash</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
+            <h3 class="text-center mb-4 text-primary">📤 Sport diplomlarni Excel orqali yuklash</h3>
+
+            {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Yopish"></button>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data" class="text-center">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="file" class="form-label fw-bold">Excel faylni tanlang (.xlsx)</label>
+                    <input class="form-control form-control-lg" type="file" name="file" id="file" accept=".xls,.xlsx" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg w-100">
+                    <i class="bi bi-upload"></i> Yuklash
+                </button>
+            </form>
+
+            <hr class="my-4">
+
+            <div class="text-muted small">
+                <p><b>Excel fayl ustunlari:</b></p>
+                <ul>
+                    <li><b>FISH</b> – to‘liq ism-sharif</li>
+                    <li><b>Sport turi</b> – sport nomi</li>
+                    <li><b>Daraja</b> – 1, 2, yoki 3</li>
+                    <li><b>Musobaqa sanasi</b> – YYYY-MM-DD format</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
