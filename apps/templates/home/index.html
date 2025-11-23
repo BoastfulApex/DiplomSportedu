@@ -13,9 +13,9 @@
         <form method="post" action="{% url 'home' %}">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="code" class="form-label">ID yoki sertifikat raqamini kiriting:</label>
+                <label for="code" class="form-label">Pasport seriya yoki </label>
                 <input type="text" class="form-control" id="code" name="code"
-                       placeholder="Masalan: 2025-001 yoki 12345"
+                       placeholder="AB1234567 yoki 12345"
                        value="{{ query|default:'' }}" required>
             </div>
             <button type="submit" class="btn btn-primary w-100">Izlash</button>
