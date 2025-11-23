@@ -163,8 +163,7 @@ def upload_sport_diplomas(request):
                 competition_date = row["Musobaqa sanasi"]
                 
                 # Seriya generatsiya
-                series = f"1-{start_number:06d}"
-                start_number += 1
+                series = str(row["Passport"]).strip()
 
                 # Bazaga yozish
                 SportDiploma.objects.create(

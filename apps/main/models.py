@@ -37,7 +37,7 @@ class Diploma(models.Model):
 class SportDiploma(models.Model):
     full_name = models.CharField(max_length=150)
     sport_type = models.CharField(max_length=100)
-    series = models.CharField(max_length=20, unique=True)
+    series = models.CharField(max_length=20)
     date = models.DateField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
     positon = models.CharField(max_length=50, null=True, blank=True)
